@@ -28,18 +28,32 @@ void tracking(int irRes){
     if(irRes>=0){
         lastDetected = irRes;
     }
+  #ifdef FAST
+    if(lastDetected==0){
+      MotorWriting( 50 , 150 );
+    }else if(lastDetected==1){
+      MotorWriting(180 , 220 );
+    }else if(lastDetected==2){
+      MotorWriting( 250 , 250  );
+    }else if(lastDetected==3){
+      MotorWriting( 220 , 180 );
+    }else if(lastDetected==4){
+     MotorWriting( 150 , 50 );
+    }
+  #endif
     
-
-  if(lastDetected==0){
-    MotorWriting( 0 , 120 );
-  }else if(lastDetected==1){
-    MotorWriting(120 , 180 );
-  }else if(lastDetected==2){
-    MotorWriting( 200 , 200  );
-  }else if(lastDetected==3){
-    MotorWriting( 180 , 120 );
-  }else if(lastDetected==4){
-   MotorWriting( 120 , 0 );
-  }
+  #ifdef MEDIUM
+    if(lastDetected==0){
+      MotorWriting( 0 , 120 );
+    }else if(lastDetected==1){
+      MotorWriting(120 , 180 );
+    }else if(lastDetected==2){
+      MotorWriting( 200 , 200  );
+    }else if(lastDetected==3){
+      MotorWriting( 180 , 120 );
+    }else if(lastDetected==4){
+     MotorWriting( 120 , 0 );
+    }
+  #endif
   
 }

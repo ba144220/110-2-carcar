@@ -1,9 +1,15 @@
 #include <SparkFun_TB6612.h>
 
 #include "ir.h"
+
+#define BIG_MAP
+#define FAST // FAST, MEDIUM, SLOW
+
+
 #include "rfid.h"
 #include "defines.h"
 #include "motor.h"
+
 
 
 byte idSize = 4;
@@ -19,11 +25,55 @@ const int END = 4;
 const int DIRECT_CONTROL = 5;
 const int READ_CMD = 6;
 
-int commands[200] = {_R,_R,_U,_R,_R,_U,_L,_F,_L,_S};
+#ifdef E_MAP
+int commands[200] = {_R,_R,_U,_R,_R,_U,_L,_F,_L,_S}; // commands for E-shape map
+#endif
+
+#ifdef BIG_MAP
+int commands[200] = {_L, _F, _R, _R, _U, 
+                        _R, _F, _L, _U,
+                        _L, _F, _U, 
+                        _R, _R, _L, _L, _R, _R, _U,
+                        _F, _F, _U, 
+                        _R, _F, _L, _F, _U,
+                        _R, _U,
+                        _R, _F, _F, _F, _L, _U,
+                        _F, _R, _R, _U, _S
+                        
+                        
+                        
+                        }; // commands for E-shape map
+
+#endif
 int command_pos = 0;
 int state = _IDLE;
+
+#ifdef FAST
+int onblock_v = 250;
+#endif
+
+
+#ifdef MEDIUM
 int onblock_v = 150;
+#endif
+
+
+#ifdef FAST
+int turn_v = 180;
+#endif
+
+#ifdef MEDIUM
 int turn_v = 120;
+#endif
+
+
+#ifdef FAST
+int uturn_v = 150;
+#endif
+
+#ifdef MEDIUM
+int uturn_v = 100;
+#endif
 
 void setup() {
   BT.begin(9600);
@@ -77,10 +127,11 @@ void loop() {
         }
         
       
-        if(irRes%100 > 3) state = ON_BLOCK;
+        if(irRes%100 > 3){
+          state = ON_BLOCK;
+        }
         else{
-            tracking(irRes/100);
-            //Serial.print(irRes/100);
+          tracking(irRes/100);
         }
     }
     
@@ -89,14 +140,19 @@ void loop() {
         if(irRes%100 >= 3) {
             MotorWriting(onblock_v, onblock_v);
             delay(30);
-            //MotorWriting(0,0);
-            //delay(10);
         }
         if(irRes%100 < 3){
             MotorWriting(120,120);
             delay(50);
             MotorWriting(0,0);
+            
+            #ifdef MEDIUM
             delay(100);
+            #endif
+            #ifdef SLOW
+            delay(100);
+            #endif
+            
             state = TURN;
             if(commands[command_pos] == _R){
                 MotorWriting(turn_v, 0);
@@ -146,10 +202,8 @@ void loop() {
         }
         else if(commands[command_pos] == _U){
             if(irRes/100 != 0 && irRes/100 != 1){
-                MotorWriting(-100, 100);
+                MotorWriting(-1*uturn_v, uturn_v);
                 delay(50);
-                //MotorWriting(0,0);
-                //delay(8);
             }
             else{
                 MotorWriting(0,0);
