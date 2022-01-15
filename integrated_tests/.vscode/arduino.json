@@ -1,0 +1,6 @@
+{
+    "port": "/dev/cu.usbserial-1140",
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega",
+    "sketch": "NewCarTest.ino"
+}
