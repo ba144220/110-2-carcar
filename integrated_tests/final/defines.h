@@ -16,6 +16,8 @@
 #define threshold 250
 
 #define LED1 46
+#define BUTTON1 47
+#define LED2 48
 
 //#define DEBUG
 //#define STBY 11  // 「待機」控制接Arduino的11腳

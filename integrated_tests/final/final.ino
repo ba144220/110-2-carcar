@@ -81,6 +81,9 @@ void setup() {
   SPI.begin();
   mfrc522.PCD_Init();
   pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(BUTTON1, INPUT);
+  delay(1000);
 }
  
 void loop() {
@@ -111,6 +114,17 @@ void loop() {
           BT.print("Echo: ");
           BT.println(readString);
         }
+
+        if(digitalRead(BUTTON1)==HIGH){
+          for(int i=4; i>=0; i--){
+            digitalWrite(LED1, LOW);
+            delay(500);
+            digitalWrite(LED1, HIGH);
+            delay(500);
+          }
+          digitalWrite(LED1, LOW);
+          state = TRACKING;
+        }
     
         
        
@@ -119,11 +133,11 @@ void loop() {
     }else if(state == TRACKING){
 
         if(commands[command_pos]==_U){
-          digitalWrite(LED1, HIGH);
-          rfid(idSize);
-          
+          if(rfid(idSize)){
+            digitalWrite(LED2, HIGH);
+          }
         }else{
-          digitalWrite(LED1, LOW);
+          digitalWrite(LED2, LOW);
         }
         
       

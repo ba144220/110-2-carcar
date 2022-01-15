@@ -21,7 +21,7 @@ void send_byte(byte *id, byte& idSize){
 }
 
 
-byte* rfid(byte& idSize) {
+bool rfid(byte& idSize) {
     // 確認是否有新卡片
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
       byte *id = mfrc522.uid.uidByte;   // 取得卡片的UID
@@ -39,7 +39,7 @@ byte* rfid(byte& idSize) {
       //#endif
       send_byte(id, idSize);
       mfrc522.PICC_HaltA();  // 讓卡片進入停止模式
-      return id;
+      return true;
     }
-    return 0;
+    return false;
 }
