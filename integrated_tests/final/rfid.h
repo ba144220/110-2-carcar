@@ -8,6 +8,10 @@ SoftwareSerial BT(RX, TX); // RX, TX
 
 void send_byte(byte *id, byte& idSize){
     for (byte i = 0; i < idSize; i++){
+ 
+        if(id[i] < 16){
+          BT.print("0");
+        }
         BT.print(id[i], HEX);
         
     }
@@ -15,6 +19,9 @@ void send_byte(byte *id, byte& idSize){
 
     Serial.print("Sent id: ");
     for (byte i = 0; i < idSize; i++){
+        if(id[i] < 16){
+          Serial.print("0");
+        }
         Serial.print(id[i], HEX);
     }
     Serial.println();
@@ -32,6 +39,9 @@ bool rfid(byte& idSize) {
         Serial.print("id[");
         Serial.print(i);
         Serial.print("]: ");
+        if(id[i] < 16){
+          Serial.print("0");
+        }
         Serial.println(id[i], HEX);       // 以16進位顯示UID值  
 
       }

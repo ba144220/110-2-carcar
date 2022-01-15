@@ -30,10 +30,18 @@ int commands[200] = {_R,_R,_U,_R,_R,_U,_L,_F,_L,_S}; // commands for E-shape map
 #endif
 
 #ifdef BIG_MAP
-int commands[200] = {_L, _F, _R, _R, _U, 
+int commands[200] = {   _L, _L, _R, _U,
+
+                        _L, _L, _R, _R, _U, 
+                    
                         _R, _F, _L, _U,
-                        _L, _F, _U, 
-                        _R, _R, _L, _L, _R, _R, _U,
+
+                        _L, _F, _U,
+
+                        _L, _L, _R, _R, _U,
+
+                        _L, _L, _R, _F, _R, _L, _L, _R, _R, _U,
+                        
                         _F, _F, _U, 
                         _R, _F, _L, _F, _U,
                         _R, _U,
@@ -49,7 +57,7 @@ int command_pos = 0;
 int state = _IDLE;
 
 #ifdef FAST
-int onblock_v = 250;
+int onblock_v = 220;
 #endif
 
 
@@ -59,7 +67,7 @@ int onblock_v = 150;
 
 
 #ifdef FAST
-int turn_v = 180;
+int turn_v = 140;
 #endif
 
 #ifdef MEDIUM

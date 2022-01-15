@@ -30,15 +30,15 @@ void tracking(int irRes){
     }
   #ifdef FAST
     if(lastDetected==0){
-      MotorWriting( 50 , 150 );
+      MotorWriting( 50 , 140 );
     }else if(lastDetected==1){
-      MotorWriting(180 , 220 );
+      MotorWriting(140 , 200 );
     }else if(lastDetected==2){
-      MotorWriting( 250 , 250  );
+      MotorWriting( 220 , 220  );
     }else if(lastDetected==3){
-      MotorWriting( 220 , 180 );
+      MotorWriting( 200 , 140 );
     }else if(lastDetected==4){
-     MotorWriting( 150 , 50 );
+     MotorWriting( 140 , 50 );
     }
   #endif
     
